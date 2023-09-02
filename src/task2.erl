@@ -12,9 +12,14 @@
 %% Розділити рядок на слова
 -export([words/1]).
 
-words(BinText) -> words(BinText, <<>>, []).
+words(BinText) ->
+  words(BinText, <<>>, []).
 
-words(<<" ", Rest/binary>>, <<>>, List) -> words(Rest, <<>>, List);
-words(<<" ", Rest/binary>>, Acc, List) -> words(Rest, <<>>, [Acc|List]);
-words(<<Char/utf8, Rest/binary>>, Acc, List) -> words(Rest, <<Acc/binary, Char/utf8>>, List);
-words(<<>>, Acc, List) -> lists:reverse([Acc|List]).
+words(<<" ", Rest/binary>>, <<>>, List) ->
+  words(Rest, <<>>, List);
+words(<<" ", Rest/binary>>, Acc, List) ->
+  words(Rest, <<>>, [Acc|List]);
+words(<<Char/utf8, Rest/binary>>, Acc, List) ->
+  words(Rest, <<Acc/binary, Char/utf8>>, List);
+words(<<>>, Acc, List) ->
+  lists:reverse([Acc|List]).
